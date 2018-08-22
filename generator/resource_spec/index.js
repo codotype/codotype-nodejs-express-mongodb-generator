@@ -3,19 +3,16 @@ const { Generator } = require('codotype-generator')
 // // // //
 
 module.exports = class ExpressJsResourceSpec extends Generator {
-  async write () {
-
-    // Destination helpers & constants
-    let dest = this.options.build.dest.expressjs.root
+  async write ({ app }) {
 
     // Store all spec filenames for inclusion in web_api/test/index.js
     let specPaths = []
 
-    // Iterates over each schema in the this.options.build.app.schemas array
-    this.options.build.app.schemas.forEach(async (schema) => {
+    // Iterates over each schema in the app.schemas array
+    app.schemas.forEach(async (schema) => {
 
       // Defines the schema-specific destination
-      let resourceDest = dest + 'server/api/' + schema.identifier
+      let resourceDest = 'server/api/' + schema.identifier
 
       // Ensures the presence of the directory
       await this.ensureDir(resourceDest)
@@ -24,19 +21,19 @@ module.exports = class ExpressJsResourceSpec extends Generator {
       let specFilePath = resourceDest + '/' + schema.identifier + '.spec.js'
 
       // Stores the spec path
-      specPaths.push('server/api/' + schema.identifier + '/' + schema.identifier + '.spec.js')
+      specPaths.push(specFilePath)
 
       // server/api/resource/resource.spec.js
       if (schema.identifier === 'user') {
         await this.copyTemplate(
-          this.templatePath(__dirname, 'user.spec.js'),
-          specFilePath,
+          this.templatePath('user.spec.js'),
+          this.destinationPath(specFilePath),
           { schema: schema }
         );
       } else {
         await this.copyTemplate(
-          this.templatePath(__dirname, 'resource.spec.js'),
-          specFilePath,
+          this.templatePath('resource.spec.js'),
+          this.destinationPath(specFilePath),
           { schema: schema }
         );
       }
@@ -49,12 +46,12 @@ module.exports = class ExpressJsResourceSpec extends Generator {
     })
 
     // Ensures the presence of the web_api/test directory
-    await this.ensureDir(dest + '/test')
+    await this.ensureDir('/test')
 
     // Writes the template
     await this.copyTemplate(
-      this.templatePath(__dirname, 'test.js'),
-      dest + '/test/index.js',
+      this.templatePath('test.js'),
+      this.destinationPath('/test/index.js'),
       { specPaths: specPaths }
     );
 
