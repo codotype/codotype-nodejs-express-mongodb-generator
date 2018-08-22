@@ -6,11 +6,8 @@ new Runtime({
   project_path: 'web_api', // TODO - pull default from codotype-meta.json
   generator_path: './generator', // TODO - pull this from codotype-meta.json, potentially refactor this approach?
   generator_options: {}, // TODO - this will be populated by the UI
-  app: require('./library-app.json')
-  // app: require('codotype-generator/examples/todo-list.json'),
-  // app: require('codotype-generator/examples/grocery-list.json'),
+  app: require('codotype-generator/examples/todo-list.json')
 }).execute()
-
 
 // NOTE - in-progress generator metadata structure
 // QUESTION - should this be encapsulated in package.json? ...probably not
