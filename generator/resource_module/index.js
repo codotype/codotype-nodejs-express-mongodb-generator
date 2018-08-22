@@ -3,16 +3,13 @@ const { Generator } = require('codotype-generator')
 // // // //
 
 module.exports = class ExpressJsResources extends Generator {
-  async write () {
+  async write ({ app }) {
 
-    // Destination helpers & constants
-    let dest = this.options.build.dest.expressjs.root
-
-    // Iterates over each schema in the this.options.build.app.schemas array
-    this.options.build.app.schemas.forEach(async (schema) => {
+    // Iterates over each schema in the app.schemas array
+    app.schemas.forEach(async (schema) => {
 
       // Defines the schema-specific destination
-      let resourceDest = dest + 'server/api/' + schema.identifier
+      let resourceDest = 'server/api/' + schema.identifier
 
       // Ensures the presence of the directory
       await this.ensureDir(resourceDest)
@@ -20,30 +17,30 @@ module.exports = class ExpressJsResources extends Generator {
       // server/api/resource/resource.model.js
       if (schema.identifier === 'user') {
         await this.copyTemplate(
-          this.templatePath(__dirname, 'user.resource.model.js'),
-          resourceDest + '/' + schema.identifier + '.model.js',
-          { schema: schema }
+          this.templatePath('user.resource.model.js'),
+          this.destinationPath(resourceDest + '/' + schema.identifier + '.model.js'),
+          { schema }
         );
       } else {
         await this.copyTemplate(
-          this.templatePath(__dirname, 'resource.model.js'),
-          resourceDest + '/' + schema.identifier + '.model.js',
-          { schema: schema }
+          this.templatePath('resource.model.js'),
+          this.destinationPath(resourceDest + '/' + schema.identifier + '.model.js'),
+          { schema }
         );
       }
 
       // server/api/resource/resource.controller.js
       await this.copyTemplate(
-        this.templatePath(__dirname, 'resource.controller.js'),
-        resourceDest + '/' + schema.identifier + '.controller.js',
-        { schema: schema, app: this.options.build.app }
+        this.templatePath('resource.controller.js'),
+        this.destinationPath(resourceDest + '/' + schema.identifier + '.controller.js'),
+        { schema }
       );
 
       // server/api/resource/index.js
       await this.copyTemplate(
-        this.templatePath(__dirname, 'index.js'),
-        resourceDest + '/index.js',
-        { schema: schema }
+        this.templatePath('index.js'),
+        this.destinationPath(resourceDest + '/index.js'),
+        { schema }
       );
 
     }) // End loop
