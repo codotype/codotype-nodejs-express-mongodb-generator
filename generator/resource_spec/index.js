@@ -28,13 +28,13 @@ module.exports = class ExpressJsResourceSpec extends Generator {
         await this.copyTemplate(
           this.templatePath('user.spec.js'),
           this.destinationPath(specFilePath),
-          { schema: schema }
+          { schema }
         );
       } else {
         await this.copyTemplate(
           this.templatePath('resource.spec.js'),
           this.destinationPath(specFilePath),
-          { schema: schema }
+          { schema }
         );
       }
 
@@ -52,7 +52,7 @@ module.exports = class ExpressJsResourceSpec extends Generator {
     await this.copyTemplate(
       this.templatePath('test.js'),
       this.destinationPath('/test/index.js'),
-      { specPaths: specPaths }
+      { specPaths }
     );
 
   }
