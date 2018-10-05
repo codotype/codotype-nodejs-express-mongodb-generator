@@ -7,14 +7,13 @@ const crypto = require('crypto')
 // Password encryption helper function
 function encryptPassword (password) {
     return crypto.createHmac('sha1', process.env.PASSWORD_ENCRYPTION_SECRET)
-        .update(password)
-        .digest('base64')
+    .update(password)
+    .digest('base64')
 }
 
 // // // //
 
 // User Schema definition
-// TODO - generator must add additional attributes
 // TODO - User should store unique `salt` attribute for encrypting passwords
 const User = new Schema({
     username: {
@@ -44,7 +43,6 @@ const User = new Schema({
 })
 
 // Create new User document
-// TODO - add email
 User.statics.create = function ({ email, username, password }) {
 
     // Instantiates new User model

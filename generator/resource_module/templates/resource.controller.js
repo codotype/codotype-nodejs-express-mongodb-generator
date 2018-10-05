@@ -1,3 +1,4 @@
+const boom = require('boom')
 const <%= schema.class_name %> = require('./<%= schema.identifier %>.model')
 <%_ for (index in schema.relations) { _%>
 <%_ let relation = schema.relations[index] _%>
@@ -5,15 +6,6 @@ const <%= schema.class_name %> = require('./<%= schema.identifier %>.model')
 const <%= relation.schema.class_name %> = require('../<%= relation.schema.identifier %>/<%= relation.schema.identifier %>.model')
 <%_ } _%>
 <%_ } _%>
-
-// // // //
-
-// TODO - abstract elsewhere
-function handleError (res) {
-    return function(err) {
-        return res.status(500).json({ error: err }).end()
-    }
-}
 
 // // // //
 
@@ -53,7 +45,7 @@ module.exports.list = (req, res, next) => {
         .send(response)
         .end();
     })
-    .catch(handleError(res));
+    .catch( err => next(boom.badImplementation(err)) );
 };
 
 
@@ -77,7 +69,7 @@ module.exports.create = (req, res, next) => {
         .send(response)
         .end();
     })
-    .catch(handleError(res));
+    .catch( err => next(boom.badImplementation(err)) );
 };
 
 
@@ -105,7 +97,7 @@ module.exports.show = (req, res, next) => {
         // .send(response.toJSON({ getters: true, virtuals: true }))
         .end();
     })
-    .catch(handleError(res));
+    .catch( err => next(boom.badImplementation(err)) );
 };
 
 <%_ schema.relations.forEach((rel) => { _%>
@@ -130,10 +122,10 @@ module.exports.show<%= rel.schema.class_name %> = (req, res, next) => {
             .send(<%= rel.schema.identifier %>)
             .end();
         })
-        .catch(handleError(res));
+        .catch( err => next(boom.badImplementation(err)) );
 
     })
-    .catch(handleError(res));
+    .catch( err => next(boom.badImplementation(err)) );
 };
 
 <% } else if (rel.type === 'HAS_MANY') { %>
@@ -165,9 +157,9 @@ module.exports.show<%= rel.schema.class_name_plural %> = (req, res, next) => {
             .send(<%= rel.schema.identifier_plural %>)
             .end();
         })
-        .catch(handleError(res));
+        .catch( err => next(boom.badImplementation(err)) );
     })
-    .catch(handleError(res));
+    .catch( err => next(boom.badImplementation(err)) );
 
 };
 
@@ -196,7 +188,7 @@ module.exports.show<%= rel.schema.class_name_plural %> = (req, res, next) => {
         .send(<%= rel.schema.identifier_plural %>)
         .end();
     })
-    .catch(handleError(res));
+    .catch( err => next(boom.badImplementation(err)) );
 };
 <%_ } _%>
 <%_ }) _%>
@@ -218,7 +210,7 @@ module.exports.update = (req, res, next) => {
         .send(response)
         .end();
     })
-    .catch(handleError(res));
+    .catch( err => next(boom.badImplementation(err)) );
 };
 
 
@@ -238,5 +230,5 @@ module.exports.delete = (req, res, next) => {
         .send(response)
         .end();
     })
-    .catch(handleError(res));
+    .catch( err => next(boom.badImplementation(err)) );
 };

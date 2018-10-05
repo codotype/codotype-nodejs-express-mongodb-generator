@@ -1,15 +1,15 @@
-const { Generator } = require('codotype-generator')
+const Generator = require('@codotype/generator')
 
 // // // //
 
 module.exports = class ExpressJsResourceSpec extends Generator {
-  async write ({ app }) {
+  async write ({ blueprint }) {
 
     // Store all spec filenames for inclusion in web_api/test/index.js
     let specPaths = []
 
-    // Iterates over each schema in the app.schemas array
-    app.schemas.forEach(async (schema) => {
+    // Iterates over each schema in the blueprint.schemas array
+    blueprint.schemas.forEach(async (schema) => {
 
       // Defines the schema-specific destination
       let resourceDest = 'server/api/' + schema.identifier
@@ -40,13 +40,13 @@ module.exports = class ExpressJsResourceSpec extends Generator {
 
     })
 
+    // Ensures the presence of the web_api/test directory
+    await this.ensureDir('/test')
+
     // Writes the entrypoint in web_api/test/index.js
     specPaths = specPaths.map((p) => {
       return `require('../${p}');`
     })
-
-    // Ensures the presence of the web_api/test directory
-    await this.ensureDir('/test')
 
     // Writes the template
     await this.copyTemplate(

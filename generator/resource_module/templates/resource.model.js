@@ -40,6 +40,11 @@ const <%= schema.class_name %> = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: '<%= rel.schema.class_name %>'
   },
+  <%_ } else if (rel.type === 'HAS_ONE') { _%>
+  <%= rel.alias.identifier + '_id' %>: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: '<%= rel.schema.class_name %>'
+  }],
   <%_ } else if (rel.type === 'HAS_MANY') { _%>
   <%= rel.alias.identifier + '_ids' %>: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -76,7 +81,7 @@ const <%= schema.class_name %> = new mongoose.Schema({
   return mongoose.model('<%= rel.schema.class_name %>').findById(this.<%= rel.alias.identifier + '_id' %>);
 }
 
-<%_ } else if (rel.type === 'OWNS_MANY') { _%>
+<%_ } else if (rel.type === 'REF_BELONGS_TO') { _%>
 
 // Specifying a virtual with a `ref` property is how you enable virtual population
 <%= schema.class_name %>.virtual('<%= rel.alias.identifier_plural %>', {
@@ -86,15 +91,15 @@ const <%= schema.class_name %> = new mongoose.Schema({
   // justOne: true // Only return one <%= rel.schema.class_name %>
 });
 
-
+<%_ /* TODO - HAS_MANY doesn't work like this */ _%>
 <%_ } else if (rel.type === 'HAS_MANY') { _%>
-<%= schema.class_name %>.methods.get<%= rel.schema.class_name_plural %> = function () {
+<%= schema.class_name %>.methods.get<%= rel.alias.class_name_plural %> = function () {
   return mongoose.model('<%= rel.schema.class_name %>').find({ <%= schema.identifier + '_id' %>: this._id });
 }
 
 <%_ } else if (rel.type === 'HAS_ONE') { _%>
-<%= schema.class_name %>.methods.get<%= rel.schema.class_name %> = function () {
-  return mongoose.model('<%= rel.schema.class_name %>').findById(this.<%= rel.alias.identifier %> });
+<%= schema.class_name %>.methods.get<%= rel.alias.class_name %> = function () {
+  return mongoose.model('<%= rel.schema.class_name %>').findById(this.<%= rel.alias.identifier + '_id' %>);
 }
 <%_ } _%>
 <%_ }) _%>

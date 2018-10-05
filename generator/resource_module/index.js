@@ -1,12 +1,12 @@
-const { Generator } = require('codotype-generator')
+const Generator = require('@codotype/generator')
 
 // // // //
 
 module.exports = class ExpressJsResources extends Generator {
-  async write ({ app }) {
+  async write ({ blueprint }) {
 
-    // Iterates over each schema in the app.schemas array
-    app.schemas.forEach(async (schema) => {
+    // Iterates over each schema in the blueprint.schemas array
+    blueprint.schemas.forEach(async (schema) => {
 
       // Defines the schema-specific destination
       let resourceDest = 'server/api/' + schema.identifier

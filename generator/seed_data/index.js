@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const Generator = require('../util/generator')
+const Generator = require('@codotype/generator')
 
 // TODO - migrate this to leverate the `codotype-generator` repository
 module.exports = class SeedData extends Generator {
