@@ -1,7 +1,7 @@
 {
     "id": "codotype-nodejs-express-mongodb-generator",
     "label": "Express.js + MongoDB",
-    "icon": "devicon-express-plain",
+    "icon": "devicon-express-original",
     "description": "ExpressJS is a server-side javascript framework for building APIs.",
     "tech_tags": ["Express.js", "Node", "ES6", "MongoDB"],
     "type_tags": ["Backend"],
