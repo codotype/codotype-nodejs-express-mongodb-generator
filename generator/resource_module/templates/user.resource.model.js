@@ -55,6 +55,12 @@ const userAttributes = {
     required: <%= attr.required %>,
     unique: <%= attr.unique %>
   },
+  <%_ } else if (attr.datatype === 'STRING_ARRAY') { _%>
+  <%= attr.identifier %>: [{
+    type: String,
+    required: <%= attr.required %>,
+    unique: <%= attr.unique %>
+  }],
   <%_ } else { _%>
   <%= attr.identifier %>: {
     type: String,
@@ -71,7 +77,7 @@ const userAttributes = {
     ref: '<%= rel.schema.class_name %>'
   },
   <%_ } else if (rel.type === 'HAS_MANY') { _%>
-  <%= attr.identifier %>: [{
+  <%= rel.alias.identifier %>_ids: [{
     type: Schema.Types.ObjectId,
     ref: '<%= rel.schema.class_name %>'
   }],

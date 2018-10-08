@@ -1,5 +1,5 @@
 {
-  "name": "codotype-vuejs-vuex-bootstrap-generator",
+  "name": "codotype-nodejs-express-mongodb-generator",
   "version": "0.1.0",
   "description": "A codotype generator for Vue.js, Vue Router, Vuex, &amp; Bootstrap",
   "main": "index.js",
