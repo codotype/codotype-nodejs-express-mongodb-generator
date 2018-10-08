@@ -1,5 +1,4 @@
-const _ = require('lodash')
-const { Generator } = require('codotype-generator')
+const Generator = require('@codotype/generator')
 
 module.exports = class DockerCompose extends Generator {
   async write ({ app }) {

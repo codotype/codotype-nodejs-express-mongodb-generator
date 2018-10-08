@@ -7,17 +7,44 @@ const crypto = require('crypto')
 // Password encryption helper function
 function encryptPassword (password) {
     return crypto.createHmac('sha1', process.env.PASSWORD_ENCRYPTION_SECRET)
-        .update(password)
-        .digest('base64')
+    .update(password)
+    .digest('base64')
 }
 
-// // // //
+const collection_options = {
+  timestamps: {
+    createdAt: 'createdOn',
+    updatedAt: 'updatedOn'
+  },
+  versionKey: false
+}
 
-const <%= schema.class_name %> = new Schema({
-  <%_ for (index in schema.attributes) { _%>
-  <%_ let attr = schema.attributes[index] _%>
+const userAttributes = {
+  username: {
+      type: String,
+      required: true
+  },
+  email: {
+      type: String,
+      required: true
+      // TODO - email validation
+  },
+  password: {
+      type: String,
+      required: true
+  },
+  password_reset_token: {
+      type: String
+  },
+  admin: {
+      type: Boolean,
+      default: false
+  },
+  <%_ schema.attributes.forEach((attr) => { _%>
+  <%_ if (attr.datatype.identifier === 'email') { return } _%>
+  <%_ if (attr.datatype.identifier === 'username') { return } _%>
   <%_ if (attr.datatype === 'BOOL') { _%>
-  <%_ continue _%>
+  <%_ return _%>
   <%_ } else if (attr.datatype === 'BOOL') { _%>
   <%= attr.identifier %>: {
     type: Boolean
@@ -28,18 +55,12 @@ const <%= schema.class_name %> = new Schema({
     required: <%= attr.required %>,
     unique: <%= attr.unique %>
   },
-  <%_ } else if (attr.datatype === 'RELATION' && attr.datatypeOptions.relationType === 'BELONGS_TO') { _%>
-  <%= attr.identifier %>: {
-    type: Schema.Types.ObjectId,
-    ref: '<%= attr.datatypeOptions.schema_label %>'
-  },
-  <%_ } else if (attr.datatype === 'RELATION' && attr.datatypeOptions.relationType === 'HAS_MANY') { _%>
+  <%_ } else if (attr.datatype === 'STRING_ARRAY') { _%>
   <%= attr.identifier %>: [{
-    type: Schema.Types.ObjectId,
-    ref: '<%= attr.datatypeOptions.schema_label %>'
+    type: String,
+    required: <%= attr.required %>,
+    unique: <%= attr.unique %>
   }],
-  <%_ } else if (attr.datatype === 'RELATION' && attr.datatypeOptions.relationType === 'OWNS_MANY') { _%>
-  <%_ continue _%>
   <%_ } else { _%>
   <%= attr.identifier %>: {
     type: String,
@@ -47,20 +68,26 @@ const <%= schema.class_name %> = new Schema({
     unique: <%= attr.unique %>
   },
   <%_ } _%>
+  <%_ }) _%>
+
+  <%_ schema.relations.forEach((rel) => { _%>
+  <%_ if (rel.type === 'BELONGS_TO') { _%>
+  <%= rel.alias.identifier %>: {
+    type: Schema.Types.ObjectId,
+    ref: '<%= rel.schema.class_name %>'
+  },
+  <%_ } else if (rel.type === 'HAS_MANY') { _%>
+  <%= rel.alias.identifier %>_ids: [{
+    type: Schema.Types.ObjectId,
+    ref: '<%= rel.schema.class_name %>'
+  }],
   <%_ } _%>
-  roles: {
-    type: [String],
-    default: []
-  }
-  },
-  // Collection options
-  {
-    timestamps: {
-      createdAt: 'createdOn',
-      updatedAt: 'updatedOn'
-  },
-  versionKey: false
-});
+  <%_ }) _%>
+}
+
+// // // //
+
+const <%= schema.class_name %> = new Schema(userAttributes, collection_options);
 
 // // // //
 
@@ -104,22 +131,27 @@ User.methods.assignAdmin = function () {
     return this.save()
 }
 
-<%_ for (index in schema.attributes) { _%>
-<%_ let attr = schema.attributes[index] _%>
-<%_ if (attr.datatype === 'RELATION' && attr.datatypeOptions.relationType === 'BELONGS_TO') { _%>
-<%= schema.class_name %>.methods.get<%= attr.datatypeOptions.schema_class_name %> = function () {
-  return mongoose.model('<%= attr.datatypeOptions.schema_label %>').findById(this.<%= attr.identifier %>);
+<%_ schema.relations.forEach((rel) => { _%>
+<%_ if (rel.type === 'BELONGS_TO') { _%>
+
+<%= schema.class_name %>.methods.get<%= rel.alias.class_name %> = function () {
+  return mongoose.model('<%= rel.schema.class_name %>').findById(this.<%= rel.alias.identifier + '_id' %>);
 }
-<%_ } else if (attr.datatype === 'RELATION' && attr.datatypeOptions.relationType === 'HAS_MANY') { _%>
-<%= schema.class_name %>.methods.get<%= attr.datatypeOptions.schema_class_name_plural %> = function () {
-  return mongoose.model('<%= attr.datatypeOptions.schema_label %>').find({ <%= schema.identifier %>_id: this._id });
+
+<%_ } else if (rel.type === 'HAS_MANY') { _%>
+
+<%= schema.class_name %>.methods.get<%= rel.alias.class_name_plural %> = function () {
+  return mongoose.model('<%= rel.schema.class_name %>').find({ <%= schema.identifier %>_id: this._id });
 }
-<%_ } else if (attr.datatype === 'RELATION' && attr.datatypeOptions.relationType === 'HAS_ONE') { _%>
-<%= schema.class_name %>.methods.get<%= attr.datatypeOptions.schema_class_name %> = function () {
-  return mongoose.model('<%= attr.datatypeOptions.schema_label %>').findById(this.<%= attr.identifier %> });
+
+<%_ } else if (rel.type === 'HAS_ONE') { _%>
+
+<%= schema.class_name %>.methods.get<%= rel.alias.class_name %> = function () {
+  return mongoose.model('<%= rel.schema.class_name %>').findById(this.<%= rel.identifier + '_id' %> });
 }
+
 <%_ } _%>
-<%_ } _%>
+<%_ }) _%>
 
 // TODO - absract schema.class_name
-module.exports = mongoose.model('<%= schema.class_name %>', <%= schema.label.split(' ').join('') %>)
+module.exports = mongoose.model('<%= schema.class_name %>', <%= schema.class_name %>)

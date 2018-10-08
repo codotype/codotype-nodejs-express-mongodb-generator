@@ -1,31 +1,29 @@
-const Codotype = require('codotype-generator')
+// TODO - this file should be moved into a test directory
+const CodotypeRuntime = require('@codotype/runtime')
 
-// const app = require('codotype-generator/examples/todo-list.json')
-const app = require('codotype-generator/examples/library.json')
+// const blueprint = require('@codotype/blueprints/lib/team-lists.json')
+// const blueprint = require('@codotype/blueprints/lib/textbook-library.json')
+const blueprint = require('@codotype/blueprints/lib/twitter.json')
 
+// Each stage can accept its own app - this is done to simplify challenges introduc
+// TODO - pull `generator_id` from codotype-meta.json, potentially refactor this approach?
+// TODO - ensure presence of valid configuration object
 const build = {
+  blueprint: blueprint,
   stages: [{
-    project_path: 'web_api', // TODO - pull this from the generator
-    generator_path: './generator', // TODO - pull this from codotype-meta.json, potentially refactor this approach?
-    configuration: {}, // TODO - this will be populated by the UI
+    generator_id: 'codotype-nodejs-express-mongodb-generator',
+    configuration: {}
   }]
 }
 
 // Invoke runtime directly with parameters
-// TODO - this should be removed and replaced by a CLI command in packge.json
-// TODO - refactor this so these options are passed into the `execute` method of this instance
-const runtime = new Codotype.runtime()
+const runtime = new CodotypeRuntime()
+
+// Registers this generator via relative path
+runtime.registerGenerator({ relative_path: './' })
 
 // Executes the build
-runtime.execute({ app, build })
-
-// NOTE - in-progress generator metadata structure
-// QUESTION - should this be encapsulated in package.json? ...probably not
-// TODO - this should be encapsulated in `codotype-meta.json`
-// module.exports = {
-//   name: 'Node.js + Express + MongoDB Generator',
-//   keywords: [],
-//   generator: generator,
-//   destination_dir: 'expressjs_mongodb',
-//   additional_options: []
-// }
+runtime.execute({ build })
+.then(() => {
+  console.log('TEST SUCCESSFUL')
+})
