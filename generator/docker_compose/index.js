@@ -8,6 +8,11 @@ module.exports = class DockerCompose extends Generator {
       this.templatePath('docker-compose.yml'),
       this.destinationPath('docker-compose.yml')
     )
+
+    await this.copyTemplate(
+      this.templatePath('docker-compose-dev.yml'),
+      this.destinationPath('docker-compose-dev.yml')
+    )
   }
 }
 

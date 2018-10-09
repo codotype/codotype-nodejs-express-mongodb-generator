@@ -1,74 +1,50 @@
 # expressjs_boilerplate
-Boilerplate API server with Express.js + MongoDB + Redis + JWT + Docker
-
-Express.js, Mongoose, ES6 Syntax is used in this project.
-
-Tutorial on this project is available at https://velopert.com/2448 (KOREAN)
+Boilerplate API server with Express.js + MongoDB + JWT + Docker
 
 ## Getting Started
-### Prerequisites
-- node.js 6.9.x
-- npm 3.x
-- MongoDB 3.0
+Express.js, Mongoose, ES6 Syntax is used in this project.
 
-### Installing & Configuration
-1) Install dependencies
+### Prerequisites
+- [Docker](https://www.docker.com/)
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+
+### Install and Develop
+1. Install dependencies with NPM:
+
 ```
 npm install
 ```
-2) Rename `config.example.js` to `config.js`
-3) Get a mongodb server and input `mongodbUri` of `config.js`
 
-### Run the server
-```
-npm start
-```
+2. Run the Docker containers for MongoDB and [Mongo-Express](https://github.com/mongo-express/mongo-express)
 
-## APIs
-### Auth Route
-#### Register
-`POST /api/auth/register`
 ```
-{
-    username,
-    password
-}
-```
-**Description**: creates a new user; first user will be assigned as an admin user. Password is stored in `HMAC-SHA1` format
-#### Login
-`POST /api/auth/login`
-```
-{
-    username,
-    password
-}
-```
-**Description**: logs in to the server. Server will return a JWT token as:
-```javascript
-{
-  "message": "logged in successfully",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODQ4MjU1NjJhOWRlMDE5NmM5MTI4ZmIiLCJ1c2VybmFtZSI6InRlc3RlciIsImFkbWluIjp0cnVlLCJpYXQiOjE0ODExMjMxNjMsImV4cCI6MTQ4MTcyNzk2MywiaXNzIjoidmVsb3BlcnQuY29tIiwic3ViIjoidXNlckluZm8ifQ.vh8LPqxYWJtO6Bxe7reL7sEon13dYFFnhpnyyEmaLBk"
-}
+docker-compose up
 ```
 
-#### Check
-`GET /api/auth/check` or `GET /api/auth/check?token={token}`
+3. Run the server in development mode:
 
-**Description**: checks the JWT. Token should be passed as Url-encoded query or `x-access-token` header
+```
+npm run dev
+```
 
-### User Route
-APIs in user routes need admin's permission to process
+### Documentation
+Documentation is auto-generated from [APIDoc.JS](http://apidocjs.com). Build the documentation with the following command:
 
-#### Check
-`GET /api/user/list`
+```
+npm run apidoc
+```
 
-**Description**: retrieves all user list
+### Technologies used
 
-#### Assign Admin
-`POST /api/user/assign-admin/:username`
+- [Express.js](https://expressjs.com/)
 
-**Description**: assigns admin permission to the given user
+- [Mongoose](http://mongoosejs.com/)
+
+- [dotenv](https://www.npmjs.com/package/dotenv)
+
+- [APIDoc.JS](http://apidocjs.com)
 
 ## License
 [MIT License](http://opensource.org/licenses/MIT).
-Copyright (c) 2016 [velopert](https://www.velopert.com/).
+Built with [codotype](https://www.codotype.io/).
