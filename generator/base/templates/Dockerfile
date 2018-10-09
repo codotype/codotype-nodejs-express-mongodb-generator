@@ -11,7 +11,7 @@ WORKDIR /usr/src/app
 # Copy dependency definitions
 # Get all the code needed to run the app
 COPY package.json /usr/src/app
-COPY .env.demo /usr/src/app/.env
+COPY .env.docker /usr/src/app/.env
 COPY server /usr/src/app/server
 
 # Install dependecies

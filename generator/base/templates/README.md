@@ -1,5 +1,5 @@
-# expressjs_boilerplate
-Boilerplate API server with Express.js + MongoDB + JWT + Docker
+# ExpressJS + MongoDB API Server
+API server with Express.js + MongoDB + JWT + Docker
 
 ## Getting Started
 Express.js, Mongoose, ES6 Syntax is used in this project.
