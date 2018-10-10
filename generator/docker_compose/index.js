@@ -3,7 +3,14 @@ const Generator = require('@codotype/generator')
 // // // //
 
 module.exports = class DockerCompose extends Generator {
-  async write () {
+  async write ({ configuration }) {
+
+    // Pulls `generate_docker_compose` from configuration.options
+    const { generate_docker_compose } = configuration.options
+
+    // Short-circuits generator execution if `generate_docker_compose` is not defined
+    if (!generate_docker_compose) { return }
+
     await this.copyTemplate(
       this.templatePath('docker-compose.yml'),
       this.destinationPath('docker-compose.yml')
