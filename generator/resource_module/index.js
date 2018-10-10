@@ -3,7 +3,10 @@ const Generator = require('@codotype/generator')
 // // // //
 
 module.exports = class ExpressJsResources extends Generator {
-  async write ({ blueprint }) {
+  async write ({ blueprint, configuration }) {
+
+    // Pulls `generate_docker_compose` from configuration.options
+    const { generate_api_doc } = configuration.options
 
     // Iterates over each schema in the blueprint.schemas array
     blueprint.schemas.forEach(async (schema) => {
@@ -33,7 +36,7 @@ module.exports = class ExpressJsResources extends Generator {
       await this.copyTemplate(
         this.templatePath('resource.controller.js'),
         this.destinationPath(resourceDest + '/' + schema.identifier + '.controller.js'),
-        { schema }
+        { schema, generate_api_doc }
       );
 
       // server/api/resource/index.js

@@ -11,6 +11,7 @@ const <%= relation.schema.class_name %> = require('../<%= relation.schema.identi
 // // // //
 
 <%_ if (schema.identifier === 'user') { _%>
+<%_ if (generate_api_doc) { _%>
 /**
 * @api {get} /api/<%= schema.identifier_plural %> Profile
 * @APIname Profile
@@ -19,11 +20,16 @@ const <%= relation.schema.class_name %> = require('../<%= relation.schema.identi
 * @apiSuccess {json} User's profile
 * @apiError (Error) 500 Internal server error
 */
+<%_ } else { _%>
+// GET /api/<%= schema.identifier_plural %> Profile
+<%_ } _%>
 exports.profile = (req, res) => {
     return <%= schema.class_name %>.findOne({ username: req.user.username }, '-password -__v').exec()
     .then( (user) => { res.json(user) })
 }
 <%_ } _%>
+
+<%_ if (generate_api_doc) { _%>
 /**
 * @api {get} /api/<%= schema.identifier_plural %> Index
 * @APIname Index
@@ -32,6 +38,9 @@ exports.profile = (req, res) => {
 * @apiSuccess {json} Collection of <%= schema.label_plural %>
 * @apiError (Error) 500 Internal server error
 */
+<%_ } else { _%>
+// GET /api/<%= schema.identifier_plural %>/:id Index
+<%_ } _%>
 module.exports.list = (req, res, next) => {
     return <%= schema.class_name %>
     .find({})
@@ -49,7 +58,7 @@ module.exports.list = (req, res, next) => {
     .catch( err => next(boom.badImplementation(err)) );
 };
 
-
+<%_ if (generate_api_doc) { _%>
 /**
 * @api {POST} /api/<%= schema.identifier_plural %> Create
 * @APIname Create
@@ -58,6 +67,9 @@ module.exports.list = (req, res, next) => {
 * @apiSuccess {json} The newly created <%= schema.label %>
 * @apiError (Error) 500 Internal server error
 */
+<%_ } else { _%>
+// POST /api/<%= schema.identifier_plural %>/:id Create
+<%_ } _%>
 module.exports.create = (req, res, next) => {
     <%_ if (schema.identifier === 'user') { _%>
     return User.create(req.body)
@@ -73,7 +85,7 @@ module.exports.create = (req, res, next) => {
     .catch( err => next(boom.badImplementation(err)) );
 };
 
-
+<%_ if (generate_api_doc) { _%>
 /**
 * @api {GET} /api/<%= schema.identifier_plural %>/:id Show
 * @APIname Show
@@ -82,6 +94,9 @@ module.exports.create = (req, res, next) => {
 * @apiSuccess {json} The requested <%= schema.label %>
 * @apiError (Error) 500 Internal server error
 */
+<%_ } else { _%>
+// GET /api/<%= schema.identifier_plural %>/:id Show
+<%_ } _%>
 module.exports.show = (req, res, next) => {
     return <%= schema.class_name %>.findById(req.params.id)
     <%_ schema.relations.forEach((rel) => { _%>
@@ -103,7 +118,7 @@ module.exports.show = (req, res, next) => {
 
 <%_ schema.relations.forEach((rel) => { _%>
 <%_ if (['BELONGS_TO', 'HAS_ONE'].includes(rel.type)) { _%>
-// BELONGS_TO
+<%_ if (generate_api_doc) { _%>
 /**
 * @api {GET} /api/<%= schema.identifier_plural %>/:id/<%= rel.alias.identifier %> show<%= rel.alias.class_name %>
 * @APIname show<%= rel.alias.class_name %>
@@ -112,6 +127,9 @@ module.exports.show = (req, res, next) => {
 * @apiSuccess {json} The related <%= rel.schema.label %> model
 * @apiError (Error) 500 Internal server error
 */
+<%_ } else { _%>
+// GET /api/<%= schema.identifier_plural %>/:id/<%= rel.alias.identifier %> show<%= rel.alias.class_name %>
+<%_ } _%>
 module.exports.show<%= rel.alias.class_name %> = (req, res, next) => {
     return <%= schema.class_name %>.findById(req.params.id)
     .then((<%= schema.identifier %>) => {
@@ -136,7 +154,7 @@ module.exports.show<%= rel.alias.class_name %> = (req, res, next) => {
 };
 
 <% } else if (rel.type === 'HAS_MANY') { %>
-// HAS_MANY
+<%_ if (generate_api_doc) { _%>
 /**
 * @api {GET} /api/<%= schema.identifier_plural %>/:id/<%= rel.schema.identifier_plural %> show<%= rel.schema.class_name_plural %>
 * @APIname show<%= rel.schema.class_name_plural %>
@@ -146,6 +164,9 @@ module.exports.show<%= rel.alias.class_name %> = (req, res, next) => {
 * @apiError (Error) 500 Internal server error
 */
 // TODO - this must be refactored to do: RelatedModel.find({ _id: [1,2,3] })
+<%_ } else { _%>
+// GET /api/<%= schema.identifier_plural %>/:id/<%= rel.schema.identifier_plural %> show<%= rel.schema.class_name_plural %>
+<%_ } _%>
 module.exports.show<%= rel.alias.class_name_plural %> = (req, res, next) => {
 
     return <%= schema.class_name %>.findById(req.params.id)
@@ -171,7 +192,7 @@ module.exports.show<%= rel.alias.class_name_plural %> = (req, res, next) => {
 };
 
 <%_ } else if (rel.type === 'REF_BELONGS_TO') { _%>
-// REF_BELONGS_TO
+<%_ if (generate_api_doc) { _%>
 /**
 * @api {GET} /api/<%= schema.identifier_plural %>/:id/<%= rel.alias.identifier_plural %> show<%= rel.alias.class_name_plural %>
 * @APIname show<%= rel.alias.class_name_plural %>
@@ -180,6 +201,9 @@ module.exports.show<%= rel.alias.class_name_plural %> = (req, res, next) => {
 * @apiSuccess {json} The related <%= rel.schema.class_name_plural %> models
 * @apiError (Error) 500 Internal server error
 */
+<%_ } else { _%>
+// GET /api/<%= schema.identifier_plural %>/:id/<%= rel.alias.identifier_plural %> show<%= rel.alias.class_name_plural %>
+<%_ } _%>
 module.exports.show<%= rel.alias.class_name_plural %> = (req, res, next) => {
     return <%= rel.schema.class_name %>
     .find({ <%= rel.reverse_alias.identifier %>_id: req.params.id })
@@ -200,7 +224,7 @@ module.exports.show<%= rel.alias.class_name_plural %> = (req, res, next) => {
 <%_ } _%>
 <%_ }) _%>
 
-
+<%_ if (generate_api_doc) { _%>
 /**
 * @api {PUT} /api/<%= schema.identifier_plural %>/:id Update
 * @APIname Update
@@ -209,6 +233,9 @@ module.exports.show<%= rel.alias.class_name_plural %> = (req, res, next) => {
 * @apiSuccess {json} The updated <%= schema.label %>
 * @apiError (Error) 500 Internal server error
 */
+<%_ } else { _%>
+// PUT /api/<%= schema.identifier_plural %>/:id Update
+<%_ } _%>
 module.exports.update = (req, res, next) => {
     return <%= schema.class_name %>.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .then((response) => {
@@ -220,7 +247,7 @@ module.exports.update = (req, res, next) => {
     .catch( err => next(boom.badImplementation(err)) );
 };
 
-
+<%_ if (generate_api_doc) { _%>
 /**
 * @api {DELETE} /api/<%= schema.identifier_plural %>/:id Destroy
 * @APIname Destroy
@@ -229,6 +256,9 @@ module.exports.update = (req, res, next) => {
 * @apiSuccess {json} The destroyed <%= schema.label %>
 * @apiError (Error) 500 Internal server error
 */
+<%_ } else { _%>
+// DELETE /api/<%= schema.identifier_plural %>/:id Destroy
+<%_ } _%>
 module.exports.delete = (req, res, next) => {
     return <%= schema.class_name %>.remove({ _id: req.params.id })
     .then((response) => {

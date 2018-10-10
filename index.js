@@ -1,5 +1,6 @@
 // TODO - this file should be moved into a test directory
 const CodotypeRuntime = require('@codotype/runtime')
+const buildConfiguration = require('@codotype/util/lib/buildConfiguration')
 
 // const blueprint = require('@codotype/blueprints/lib/team-lists.json')
 // const blueprint = require('@codotype/blueprints/lib/textbook-library.json')
@@ -12,7 +13,7 @@ const build = {
   blueprint: blueprint,
   stages: [{
     generator_id: 'codotype-nodejs-express-mongodb-generator',
-    configuration: {}
+    configuration: buildConfiguration({ blueprint: blueprint, generator: require('./meta') })
   }]
 }
 

@@ -8,7 +8,24 @@
   "self_configuring": false,
   "project_path": "express_api",
   "addons": [],
-  "global_options": [],
+  "global_options": [
+    {
+      "label": "Generate Docker Compose files",
+      "identifier": "generate_docker_compose",
+      "type": "BOOLEAN",
+      "help": "Whether or not generate Docker Compose files for the API server.",
+      "default_value": true,
+      "more_info_url": "https://getbootstrap.com"
+    },
+    {
+      "label": "Generate APIDoc Documentation Headers",
+      "identifier": "generate_api_doc",
+      "type": "BOOLEAN",
+      "help": "Whether or not generate APIDoc-compatible comment headers in the API controllers",
+      "default_value": true,
+      "more_info_url": "http://apidocjs.com"
+    }
+  ],
   "model_options": [],
   "github_url": "codotype/codotype-nodejs-express-mongodb-generator",
   "version": "0.1.0",
