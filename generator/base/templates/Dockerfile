@@ -11,8 +11,8 @@ WORKDIR /usr/src/app
 # Copy dependency definitions
 # Get all the code needed to run the app
 COPY package.json /usr/src/app
-COPY .env.docker /usr/src/app/.env
 COPY server /usr/src/app/server
+COPY .env.docker /usr/src/app/.env
 
 # Install dependecies
 RUN npm install
