@@ -15,7 +15,7 @@
       "type": "BOOLEAN",
       "help": "Whether or not generate Docker Compose files for the API server.",
       "default_value": true,
-      "more_info_url": "https://getbootstrap.com"
+      "more_info_url": "https://docs.docker.com/compose/"
     },
     {
       "label": "Generate APIDoc Documentation Headers",
