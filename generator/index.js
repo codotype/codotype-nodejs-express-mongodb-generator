@@ -6,7 +6,7 @@ module.exports = class ExpressJS extends Generator {
     await this.composeWith('./environment')
     await this.composeWith('./routes')
     await this.composeWith('./resource_module')
-    // await this.composeWith('./resource_spec')
     await this.composeWith('./docker_compose')
+    // await this.composeWith('./resource_spec')
   }
 }
