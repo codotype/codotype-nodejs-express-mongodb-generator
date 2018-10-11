@@ -9,7 +9,10 @@ module.exports = class ExpressJsResources extends Generator {
     const { generate_api_doc } = configuration.options
 
     // Iterates over each schema in the blueprint.schemas array
-    blueprint.schemas.forEach(async (schema) => {
+    // blueprint.schemas.forEach(async (schema) => {
+    let schema
+    for (var i = blueprint.schemas.length - 1; i >= 0; i--) {
+      schema = blueprint.schemas[i]
 
       // Defines the schema-specific destination
       let resourceDest = 'server/api/' + schema.identifier
@@ -46,7 +49,8 @@ module.exports = class ExpressJsResources extends Generator {
         { schema }
       );
 
-    }) // End loop
+    // }) // End loop
+    } // End FOR
   }
 
 };
