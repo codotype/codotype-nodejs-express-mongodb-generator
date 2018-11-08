@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/codotype/codotype-vuejs-vuex-bootstrap-generator#readme",
   "dependencies": {
-    "@codotype/generator": "^0.2.0"
+    "@codotype/generator": "^0.3.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "codotype-vuejs-vuex-bootstrap-generator": "git+https://github.com/codotype/codotype-vuejs-vuex-bootstrap-generator.git"
   },
   "devDependencies": {
     "@codotype/blueprints": "^0.2.0",

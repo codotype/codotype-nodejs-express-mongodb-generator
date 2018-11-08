@@ -1,0 +1,430 @@
+{
+  "_id": "5bc3f94bd73a8edd7dd27ae5",
+  "label": "Textbook Library",
+  "identifier": "textbook_library",
+  "schemas": [
+    {
+      "_id": "SCH_4",
+      "enabled": true,
+      "label": "User",
+      "label_plural": "Users",
+      "identifier": "user",
+      "identifier_plural": "users",
+      "class_name": "User",
+      "class_name_plural": "Users",
+      "attributes": [
+        {
+          "order": 0,
+          "label": "E-Mail",
+          "help": "E-Mail address associated with this Contact.",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "identifier": "email",
+          "_id": "attr_26577092992831",
+          "locked": true
+        },
+        {
+          "order": 1,
+          "label": "Username",
+          "help": "The user's username",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "identifier": "username",
+          "_id": "attr_265770dpskks31",
+          "locked": true
+        },
+        {
+          "order": 2,
+          "label": "Roles",
+          "identifier": "roles",
+          "help": "",
+          "required": false,
+          "unique": false,
+          "datatype": "STRING_ARRAY",
+          "datatypeOptions": {},
+          "_id": "5bb8e9eac3f8154be83fa2e1"
+        },
+        {
+          "order": 3,
+          "label": "Verified",
+          "identifier": "verified",
+          "help": "",
+          "required": false,
+          "unique": false,
+          "datatype": "BOOL",
+          "datatypeOptions": {},
+          "_id": "5bb8ea15c3f8154be83fa2e2"
+        },
+        {
+          "order": 4,
+          "label": "Banned",
+          "identifier": "banned",
+          "help": "Whether or not the user has been banned",
+          "required": false,
+          "unique": false,
+          "datatype": "BOOL",
+          "datatypeOptions": {},
+          "_id": "5bcbbe5bdd3604c86cf2c292"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "_id": "5bb8e4c8ef8147c7233a8b46",
+      "label": "Book Type",
+      "label_plural": "Book Types",
+      "identifier": "book_type",
+      "identifier_plural": "book_types",
+      "class_name": "BookType",
+      "class_name_plural": "BookTypes",
+      "relations": [],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Title",
+          "identifier": "title",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        },
+        {
+          "order": 1,
+          "label": "Edition",
+          "identifier": "edition",
+          "help": "",
+          "required": false,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bb8e5f8ef8147c7233a8b4f"
+        },
+        {
+          "order": 2,
+          "label": "ISBN 13",
+          "identifier": "isbn_13",
+          "help": "",
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bb8e611ef8147c7233a8b50",
+          "required": true,
+          "unique": true
+        },
+        {
+          "order": 3,
+          "label": "ISBN 10",
+          "identifier": "isbn_10",
+          "help": "",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bb8e61fef8147c7233a8b51"
+        },
+        {
+          "order": 4,
+          "label": "Authors",
+          "identifier": "authors",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "STRING_ARRAY",
+          "datatypeOptions": {},
+          "_id": "5bb8e7d837389a3f413fb34d"
+        },
+        {
+          "order": 5,
+          "label": "List Price",
+          "identifier": "list_price",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "NUMBER",
+          "datatypeOptions": {
+            "default": 0
+          },
+          "_id": "5bb8e85bc3f8154be83fa2db"
+        },
+        {
+          "order": 6,
+          "label": "Image URL",
+          "identifier": "image_url",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bb8e871c3f8154be83fa2dc"
+        }
+      ]
+    },
+    {
+      "_id": "5bb8e4d3ef8147c7233a8b47",
+      "label": "Book",
+      "label_plural": "Books",
+      "identifier": "book",
+      "identifier_plural": "books",
+      "class_name": "Book",
+      "class_name_plural": "Books",
+      "relations": [
+        {
+          "id": null,
+          "order": 0,
+          "type": "BELONGS_TO",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bb8e4c8ef8147c7233a8b46",
+          "reverse_relation_id": "",
+          "as": "",
+          "reverse_as": "",
+          "_id": "5bb8e74e7c171ec01d173621",
+          "schema_id": "5bb8e4d3ef8147c7233a8b47"
+        }
+      ],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Slug",
+          "identifier": "slug",
+          "help": "",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        },
+        {
+          "order": 1,
+          "label": "Status",
+          "identifier": "status",
+          "help": "The current status of this Book - only editable by the server.",
+          "required": false,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bc3fa35d73a8edd7dd27ae6"
+        }
+      ]
+    },
+    {
+      "_id": "5bb8e4e9ef8147c7233a8b48",
+      "label": "Checkout",
+      "label_plural": "Checkouts",
+      "identifier": "checkout",
+      "identifier_plural": "checkouts",
+      "class_name": "Checkout",
+      "class_name_plural": "Checkouts",
+      "relations": [
+        {
+          "id": null,
+          "order": 0,
+          "type": "HAS_ONE",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "SCH_4",
+          "reverse_relation_id": "",
+          "as": "Check Out Librarian",
+          "reverse_as": "",
+          "_id": "5bb8e57def8147c7233a8b4b",
+          "schema_id": "5bb8e4e9ef8147c7233a8b48"
+        },
+        {
+          "id": null,
+          "order": 1,
+          "type": "HAS_ONE",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "SCH_4",
+          "reverse_relation_id": "",
+          "as": "Check In Librarian",
+          "reverse_as": "",
+          "_id": "5bb8e587ef8147c7233a8b4c",
+          "schema_id": "5bb8e4e9ef8147c7233a8b48"
+        },
+        {
+          "id": null,
+          "order": 2,
+          "type": "BELONGS_TO",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "SCH_4",
+          "reverse_relation_id": "",
+          "as": "Renter",
+          "reverse_as": "Rental",
+          "_id": "5bb8e5b1ef8147c7233a8b4d",
+          "schema_id": "5bb8e4e9ef8147c7233a8b48"
+        },
+        {
+          "id": null,
+          "order": 3,
+          "type": "BELONGS_TO",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bb8e4d3ef8147c7233a8b47",
+          "reverse_relation_id": "",
+          "as": "",
+          "reverse_as": "",
+          "_id": "5bb8e5cfef8147c7233a8b4e",
+          "schema_id": "5bb8e4e9ef8147c7233a8b48"
+        }
+      ],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Start Date",
+          "identifier": "start_date",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "DATE",
+          "datatypeOptions": {},
+          "_id": "5bb8e50eef8147c7233a8b49"
+        },
+        {
+          "order": 1,
+          "label": "End Date",
+          "identifier": "end_date",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "DATE",
+          "datatypeOptions": {},
+          "_id": "5bb8e518ef8147c7233a8b4a"
+        },
+        {
+          "order": 2,
+          "label": "Status",
+          "identifier": "status",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bb8e76a7c171ec01d173622"
+        }
+      ]
+    },
+    {
+      "_id": "5bb8e880c3f8154be83fa2dd",
+      "label": "Course",
+      "label_plural": "Courses",
+      "identifier": "course",
+      "identifier_plural": "courses",
+      "class_name": "Course",
+      "class_name_plural": "Courses",
+      "relations": [
+        {
+          "id": null,
+          "order": 0,
+          "type": "HAS_MANY",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bb8e4c8ef8147c7233a8b46",
+          "reverse_relation_id": "",
+          "as": "Required Book",
+          "reverse_as": "",
+          "_id": "5bc3fb71d73a8edd7dd27ae7",
+          "schema_id": "5bb8e880c3f8154be83fa2dd"
+        },
+        {
+          "id": null,
+          "order": 1,
+          "type": "HAS_MANY",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bb8e4c8ef8147c7233a8b46",
+          "reverse_relation_id": "",
+          "as": "Recommended Book",
+          "reverse_as": "",
+          "_id": "5bc3fb91d73a8edd7dd27ae8",
+          "schema_id": "5bb8e880c3f8154be83fa2dd"
+        }
+      ],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Label",
+          "identifier": "label",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bb9579f164b8451e6d894c7"
+        },
+        {
+          "order": 1,
+          "label": "Subject Code",
+          "identifier": "subject_code",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        },
+        {
+          "order": 2,
+          "label": "Course Number",
+          "identifier": "course_number",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "NUMBER",
+          "datatypeOptions": {},
+          "_id": "5bb8e8c2c3f8154be83fa2de"
+        }
+      ]
+    },
+    {
+      "_id": "5bccc71e8f0ef12db7de4b7a",
+      "label": "Faq",
+      "label_plural": "Faqs",
+      "identifier": "faq",
+      "identifier_plural": "faqs",
+      "class_name": "Faq",
+      "class_name_plural": "Faqs",
+      "relations": [],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Question",
+          "identifier": "question",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        },
+        {
+          "order": 1,
+          "label": "Answer",
+          "identifier": "answer",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bccc7568f0ef12db7de4b7b"
+        },
+        {
+          "order": 2,
+          "label": "Order",
+          "identifier": "order",
+          "help": "",
+          "required": true,
+          "unique": false,
+          "datatype": "NUMBER",
+          "datatypeOptions": {
+            "default": 0
+          },
+          "_id": "5bcccd986ff4212071a795f2"
+        }
+      ]
+    }
+  ],
+  "seeds": []
+}

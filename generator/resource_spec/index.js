@@ -1,8 +1,4 @@
-const Generator = require('@codotype/generator')
-
-// // // //
-
-module.exports = class ExpressJsResourceSpec extends Generator {
+module.exports = {
   async write ({ blueprint }) {
 
     // Store all spec filenames for inclusion in web_api/test/index.js

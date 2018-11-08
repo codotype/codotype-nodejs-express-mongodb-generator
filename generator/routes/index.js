@@ -1,12 +1,10 @@
-const Generator = require('@codotype/generator')
-
-// // // //
-
-module.exports = class ExpressJsRoutes extends Generator {
+module.exports = {
+  name: 'NodeExpressRouter',
   async write () {
-    await this.copyTemplate(
-      this.templatePath('routes.js'),
-      this.destinationPath('server/routes.js')
-    )
+    await this.renderComponent({ src: 'routes.js', dest: 'server/routes.js' })
+    // await this.copyTemplate(
+    //   this.templatePath('routes.js'),
+    //   this.destinationPath('server/routes.js')
+    // )
   }
 }

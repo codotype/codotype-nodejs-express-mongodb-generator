@@ -27,6 +27,9 @@
     }
   ],
   "model_options": [],
+  "composed_with": {
+    "codotype-nodejs-express-mongodb-generator": "0.3.0"
+  },
   "github_url": "codotype/codotype-nodejs-express-mongodb-generator",
   "version": "0.1.0",
   "official": true

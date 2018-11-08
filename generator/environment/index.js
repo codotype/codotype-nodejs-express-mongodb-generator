@@ -1,8 +1,5 @@
-const Generator = require('@codotype/generator')
-
-// // // //
-
-module.exports = class EnvironmentGenerator extends Generator {
+module.exports = {
+  name: 'NodeExpressEnvironment',
   async write () {
     await this.copyTemplate(
       this.templatePath('env-dev.txt'),

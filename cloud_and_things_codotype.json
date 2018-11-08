@@ -1,0 +1,368 @@
+{
+  "_id": "5bd67addec5c51514d24db15",
+  "label": "Cloud And Things",
+  "identifier": "cloud_and_things",
+  "schemas": [
+    {
+      "_id": "SCH_1",
+      "enabled": true,
+      "label": "User",
+      "label_plural": "Users",
+      "identifier": "user",
+      "identifier_plural": "users",
+      "class_name": "User",
+      "class_name_plural": "Users",
+      "attributes": [
+        {
+          "order": 0,
+          "label": "E-Mail",
+          "help": "E-Mail address associated with this Contact.",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "identifier": "email",
+          "_id": "attr_26577092992831",
+          "locked": true
+        },
+        {
+          "order": 1,
+          "label": "Username",
+          "help": "The user's username",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "identifier": "username",
+          "_id": "attr_265770dpskks31",
+          "locked": true
+        }
+      ],
+      "relations": []
+    },
+    {
+      "_id": "5bd67af8ec5c51514d24db16",
+      "label": "Resource",
+      "label_plural": "Resources",
+      "identifier": "resource",
+      "identifier_plural": "resources",
+      "class_name": "Resource",
+      "class_name_plural": "Resources",
+      "relations": [
+        {
+          "id": null,
+          "order": 0,
+          "type": "BELONGS_TO",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bd67b7cec5c51514d24db1a",
+          "reverse_relation_id": "",
+          "as": "",
+          "reverse_as": "",
+          "_id": "5bd67bb2ec5c51514d24db1b",
+          "schema_id": "5bd67af8ec5c51514d24db16"
+        },
+        {
+          "id": null,
+          "order": 1,
+          "type": "BELONGS_TO",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bd67af8ec5c51514d24db16",
+          "reverse_relation_id": "",
+          "as": "Referred By Resource",
+          "reverse_as": "Referrals",
+          "_id": "5bd67c1dec5c51514d24db1d",
+          "schema_id": "5bd67af8ec5c51514d24db16"
+        },
+        {
+          "id": null,
+          "order": 2,
+          "type": "HAS_MANY",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bd67c73ec5c51514d24db21",
+          "reverse_relation_id": "",
+          "as": "",
+          "reverse_as": "",
+          "_id": "5bd67c7eec5c51514d24db22",
+          "schema_id": "5bd67af8ec5c51514d24db16"
+        },
+        {
+          "id": null,
+          "order": 3,
+          "type": "HAS_MANY",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bd67c87ec5c51514d24db23",
+          "reverse_relation_id": "",
+          "as": "",
+          "reverse_as": "",
+          "_id": "5bd67c93ec5c51514d24db24",
+          "schema_id": "5bd67af8ec5c51514d24db16"
+        },
+        {
+          "id": null,
+          "order": 4,
+          "type": "HAS_MANY",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bd67ce3ec5c51514d24db25",
+          "reverse_relation_id": "",
+          "as": "",
+          "reverse_as": "",
+          "_id": "5bd67d39ec5c51514d24db28",
+          "schema_id": "5bd67af8ec5c51514d24db16"
+        },
+        {
+          "id": null,
+          "order": 5,
+          "type": "HAS_MANY",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bd67d0cec5c51514d24db26",
+          "reverse_relation_id": "",
+          "as": "",
+          "reverse_as": "",
+          "_id": "5bd67d46ec5c51514d24db29",
+          "schema_id": "5bd67af8ec5c51514d24db16"
+        },
+        {
+          "id": null,
+          "order": 6,
+          "type": "HAS_MANY",
+          "required": false,
+          "generate_reverse": true,
+          "related_schema_id": "5bd67d1dec5c51514d24db27",
+          "reverse_relation_id": "",
+          "as": "",
+          "reverse_as": "",
+          "_id": "5bd67d52ec5c51514d24db2a",
+          "schema_id": "5bd67af8ec5c51514d24db16"
+        }
+      ],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Name",
+          "identifier": "name",
+          "help": "The name of the individual",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        },
+        {
+          "order": 1,
+          "label": "Phone",
+          "identifier": "phone",
+          "help": "The phone number for this individual",
+          "required": false,
+          "unique": false,
+          "datatype": "NUMBER",
+          "datatypeOptions": {},
+          "_id": "5bd67b2fec5c51514d24db17"
+        },
+        {
+          "order": 2,
+          "label": "Email",
+          "identifier": "email",
+          "help": "The email address of this individual",
+          "required": false,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bd67b43ec5c51514d24db18"
+        },
+        {
+          "order": 3,
+          "label": "Bio",
+          "identifier": "bio",
+          "help": "The bio of this individual",
+          "required": false,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bd67b5bec5c51514d24db19"
+        },
+        {
+          "order": 4,
+          "label": "Status",
+          "identifier": "status",
+          "help": "The status of this individual",
+          "required": false,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bd67bc0ec5c51514d24db1c"
+        },
+        {
+          "order": 5,
+          "label": "Resume URL",
+          "identifier": "resume_url",
+          "help": "A URL to this individual's resume",
+          "required": false,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bd67c36ec5c51514d24db1e"
+        },
+        {
+          "order": 6,
+          "label": "LinkedIn URL",
+          "identifier": "linked_in_url",
+          "help": "A URL to this individual's LinkedIn profile",
+          "required": false,
+          "unique": false,
+          "datatype": "TEXT",
+          "datatypeOptions": {},
+          "_id": "5bd67c4fec5c51514d24db1f"
+        },
+        {
+          "order": 7,
+          "label": "Team Member?",
+          "identifier": "team_member",
+          "help": "Is this individual a current team member?",
+          "required": false,
+          "unique": false,
+          "datatype": "BOOL",
+          "datatypeOptions": {},
+          "_id": "5bd67c65ec5c51514d24db20"
+        }
+      ]
+    },
+    {
+      "_id": "5bd67b7cec5c51514d24db1a",
+      "label": "Company",
+      "label_plural": "Companies",
+      "identifier": "company",
+      "identifier_plural": "companies",
+      "class_name": "Company",
+      "class_name_plural": "Companies",
+      "relations": [],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Name",
+          "identifier": "name",
+          "help": "The name of this company",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        }
+      ]
+    },
+    {
+      "_id": "5bd67c73ec5c51514d24db21",
+      "label": "Certificate",
+      "label_plural": "Certificates",
+      "identifier": "certificate",
+      "identifier_plural": "certificates",
+      "class_name": "Certificate",
+      "class_name_plural": "Certificates",
+      "relations": [],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Label",
+          "identifier": "label",
+          "help": "",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        }
+      ]
+    },
+    {
+      "_id": "5bd67c87ec5c51514d24db23",
+      "label": "Skill",
+      "label_plural": "Skills",
+      "identifier": "skill",
+      "identifier_plural": "skills",
+      "class_name": "Skill",
+      "class_name_plural": "Skills",
+      "relations": [],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Label",
+          "identifier": "label",
+          "help": "",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        }
+      ]
+    },
+    {
+      "_id": "5bd67ce3ec5c51514d24db25",
+      "label": "Specialty",
+      "label_plural": "Specialties",
+      "identifier": "specialty",
+      "identifier_plural": "specialties",
+      "class_name": "Specialty",
+      "class_name_plural": "Specialties",
+      "relations": [],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Label",
+          "identifier": "label",
+          "help": "",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        }
+      ]
+    },
+    {
+      "_id": "5bd67d0cec5c51514d24db26",
+      "label": "Job Title",
+      "label_plural": "Job Titles",
+      "identifier": "job_title",
+      "identifier_plural": "job_titles",
+      "class_name": "JobTitle",
+      "class_name_plural": "JobTitles",
+      "relations": [],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Label",
+          "identifier": "label",
+          "help": "",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        }
+      ]
+    },
+    {
+      "_id": "5bd67d1dec5c51514d24db27",
+      "label": "Category",
+      "label_plural": "Categories",
+      "identifier": "category",
+      "identifier_plural": "categories",
+      "class_name": "Category",
+      "class_name_plural": "Categories",
+      "relations": [],
+      "attributes": [
+        {
+          "order": 0,
+          "label": "Label",
+          "identifier": "label",
+          "help": "",
+          "required": true,
+          "unique": true,
+          "datatype": "TEXT",
+          "datatypeOptions": {}
+        }
+      ]
+    }
+  ],
+  "seeds": []
+}
