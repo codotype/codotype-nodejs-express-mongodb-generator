@@ -1,14 +1,7 @@
 module.exports = {
   name: 'NodeExpressEnvironment',
   async write () {
-    await this.copyTemplate(
-      this.templatePath('env-dev.txt'),
-      this.destinationPath('.env')
-    )
-
-    await this.copyTemplate(
-      this.templatePath('env-docker.txt'),
-      this.destinationPath('.env.docker')
-    )
+    await this.renderComponent({ src: 'env-dev.txt', dest: '.env' })
+    await this.renderComponent({ src: 'env-docker.txt', dest: '.env.docker' })
   }
 }
