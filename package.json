@@ -1,30 +1,27 @@
 {
   "name": "codotype-nodejs-express-mongodb-generator",
-  "version": "0.1.0",
-  "description": "A codotype generator for Vue.js, Vue Router, Vuex, &amp; Bootstrap",
+  "version": "0.4.0",
+  "description": "A codotype generator for Node.js, Express, MongoDB, &amp; Docker",
   "main": "index.js",
   "scripts": {
     "test": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codotype/codotype-vuejs-vuex-bootstrap-generator.git"
+    "url": "git+https://github.com/codotype/codotype-nodejs-express-mongodb-generator.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/codotype/codotype-vuejs-vuex-generator/issues"
   },
-  "homepage": "https://github.com/codotype/codotype-vuejs-vuex-bootstrap-generator#readme",
+  "homepage": "https://github.com/codotype/codotype-nodejs-express-mongodb-generator#readme",
   "dependencies": {
-    "@codotype/generator": "^0.3.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "codotype-vuejs-vuex-bootstrap-generator": "git+https://github.com/codotype/codotype-vuejs-vuex-bootstrap-generator.git"
+    "@codotype/generator": "^0.4.0"
   },
   "devDependencies": {
     "@codotype/blueprints": "^0.2.0",
     "@codotype/util": "^0.3.0",
-    "@codotype/runtime": "^0.4.0"
+    "@codotype/runtime": "^0.5.0"
   }
 }
