@@ -48,8 +48,6 @@ module.exports.list = (req, res, next) => {
     .populate({ path: '<%= rel.alias.identifier %>', select: '<%= rel.related_lead_attribute %>' })
     <%_ } _%>
     <%_ }) _%>
-    .lean()
-    .exec()
     .then((response) => {
         return res
         .status(200)
