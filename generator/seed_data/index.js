@@ -1,5 +1,3 @@
-const _ = require('lodash')
-
 module.exports = {
   async write () {
 
@@ -29,7 +27,7 @@ module.exports = {
     let mongoImports = ['CMD echo "Seeding MongoDB"']
 
     // Generates COPY and mongoimport statements
-    _.each(this.options.build.app.seed_data, (data, schema_id) => {
+    this.options.build.app.seed_data.forEach((data, schema_id) => {
 
       // Debug statement
       // console.log(data.records)

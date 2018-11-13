@@ -1,4 +1,5 @@
 module.exports = {
+  name: 'ResourceSpec',
   async write ({ blueprint }) {
 
     // Store all spec filenames for inclusion in web_api/test/index.js

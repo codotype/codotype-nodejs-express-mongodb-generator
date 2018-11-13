@@ -10,14 +10,6 @@ const <%= relation.schema.class_name %> = require('../<%= relation.schema.identi
 
 // // // //
 
-// Default pagination options
-function getPaginationParams (req) {
-    let page = Number(req.query.page) || 0;
-    let per_page = Number(req.query.per_page) || 10;
-    let offset = per_page * page;
-    return { page, per_page, offset }
-}
-
 <%_ if (schema.identifier === 'user') { _%>
 <%_ if (generate_api_doc) { _%>
 /**
@@ -50,96 +42,21 @@ exports.profile = (req, res) => {
 // GET /api/<%= schema.identifier_plural %>/:id Index
 <%_ } _%>
 module.exports.list = (req, res, next) => {
-    // Gets pagination variables for query
-    const { page, per_page, offset } = getPaginationParams(req);
-
-    return <%= schema.class_name %>
-    .find({})
+    return <%= schema.class_name %>.find({})
     <%_ schema.relations.forEach((rel) => { _%>
     <%_ if (['BELONGS_TO', 'HAS_ONE'].includes(rel.type)) { _%>
     .populate({ path: '<%= rel.alias.identifier %>', select: '<%= rel.related_lead_attribute %>' })
     <%_ } _%>
     <%_ }) _%>
-    .limit(per_page)
-    .skip(offset)
     .lean()
     .exec()
     .then((response) => {
         return res
         .status(200)
-        .json({
-          page: page,
-          per_page: per_page,
-          items: response
-        });
+        .json(response);
     })
     .catch( err => next(boom.badImplementation(err)) );
 };
-
-
-
-<%_ if (generate_api_doc) { _%>
-/**
-* @api {get} /api/<%= schema.identifier_plural %>/search Search
-* @apiName search
-* @apiGroup <%= schema.class_name %> Controller
-* @apiDescription Gets a list of <%= schema.label_plural %> that match a search query
-* @apiPermission authenticated
-* @apiSuccess {Collection} root Collection of <%= schema.label %> records
-* @apiError (500) UnknownException Could not retrieve <%= schema.label %> collection
-*/
-<%_ } else { _%>
-// GET /api/<%= schema.identifier_plural %>/search Search
-<%_ } _%>
-module.exports.search = (req, res) => {
-    // Gets pagination variables for query
-    const { page, per_page, offset } = getPaginationParams(req);
-
-    // Assigns query for search
-    // let query = req.query.search || ''
-
-    // Ensures correct type casting for query
-    // if (query.year) {
-    //   query.year['$in'] = _.map(query.year['$in'], (yr) => { return Number(yr) })
-    // }
-
-    <%_ if (schema.attributes.filter(attr => attr.datatype === 'TEXT').length) { _%>
-
-    let textSearch = req.query.search || ''
-
-    const matchQuery = [
-        <%_ schema.attributes.forEach((attr) => { _%>
-        <%_ if (attr.datatype !== 'TEXT') { return } _%>
-        { <%= attr.identifier _%>: new RegExp(textSearch, 'i') },
-        <%_ }) _%>
-    ]
-
-    // Assigns matchQuery to queryObject
-    // query = {}
-    // query['$and'] = [
-    //     { '$or': matchQuery }
-    // ]
-
-    const query = { '$or': matchQuery }
-    <%_ } else { _%>
-    const query = {}
-    <%_ } _%>
-
-    return <%= schema.class_name %>.find(query)
-    .limit(per_page)
-    .skip(offset)
-    .lean()
-    .exec()
-    .then((items) => {
-        return res
-        .status(200)
-        .json({ page, per_page, count: 100, items })
-    })
-    .catch( err => next(boom.badImplementation(err)) );
-};
-
-
-
 
 <%_ if (generate_api_doc) { _%>
 /**
