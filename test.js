@@ -3,15 +3,10 @@ const CodotypeRuntime = require('@codotype/runtime')
 const buildConfiguration = require('@codotype/util/lib/buildConfiguration')
 
 // const blueprint = require('@codotype/blueprints/lib/team-lists.json')
-// const blueprint = require('@codotype/blueprints/lib/textbook-library.json')
+const blueprint = require('@codotype/blueprints/lib/textbook-library.json')
 // const blueprint = require('@codotype/blueprints/lib/twitter.json')
-const blueprint = require('./free_textbook_library.json')
-// const blueprint = require('./oakwood_cemetary_codotype.json')
-// const blueprint = require('./cloud_and_things_codotype.json')
 
-// Each stage can accept its own app - this is done to simplify challenges introduc
-// TODO - pull `generator_id` from codotype-meta.json, potentially refactor this approach?
-// TODO - ensure presence of valid configuration object
+// Defines build
 const build = {
   blueprint: blueprint,
   stages: [{

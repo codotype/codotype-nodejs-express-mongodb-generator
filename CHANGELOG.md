@@ -1,8 +1,7 @@
-### v0.1.0
+### v0.2.0
 
-#### Features
-* Added `forEachSchema` method
-* Added `compileInPlace` and `compileTemplatesInPlace` method
+#### Fixes
+* Various bug fixes - too many to list
 
 #### Documentation
 * Added `CHANGELOG.md`
