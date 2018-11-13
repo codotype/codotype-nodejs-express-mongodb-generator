@@ -42,8 +42,7 @@ exports.profile = (req, res) => {
 // GET /api/<%= schema.identifier_plural %>/:id Index
 <%_ } _%>
 module.exports.list = (req, res, next) => {
-    return <%= schema.class_name %>
-    .find({})
+    return <%= schema.class_name %>.find({})
     <%_ schema.relations.forEach((rel) => { _%>
     <%_ if (['BELONGS_TO', 'HAS_ONE'].includes(rel.type)) { _%>
     .populate({ path: '<%= rel.alias.identifier %>', select: '<%= rel.related_lead_attribute %>' })
@@ -52,8 +51,7 @@ module.exports.list = (req, res, next) => {
     .then((response) => {
         return res
         .status(200)
-        .send(response)
-        .end();
+        .json(response);
     })
     .catch( err => next(boom.badImplementation(err)) );
 };

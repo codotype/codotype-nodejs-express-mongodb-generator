@@ -1,8 +1,5 @@
-const Generator = require('@codotype/generator')
-
-// // // //
-
-module.exports = class DockerCompose extends Generator {
+module.exports = {
+  name: 'NodeExpressDockerCompose',
   async write ({ configuration }) {
 
     // Pulls `generate_docker_compose` from configuration.options
@@ -11,27 +8,8 @@ module.exports = class DockerCompose extends Generator {
     // Short-circuits generator execution if `generate_docker_compose` is not defined
     if (!generate_docker_compose) { return }
 
-    await this.copyTemplate(
-      this.templatePath('docker-compose.yml'),
-      this.destinationPath('docker-compose.yml')
-    )
+    await this.renderComponent({ src: 'docker-compose.yml', dest: 'docker-compose.yml' })
+    await this.renderComponent({ src: 'docker-compose-dev.yml', dest: 'docker-compose-dev.yml' })
 
-    await this.copyTemplate(
-      this.templatePath('docker-compose-dev.yml'),
-      this.destinationPath('docker-compose-dev.yml')
-    )
   }
 }
-
-// Returns boolean wether or not there is seed data
-// TODO - this is repeated in more than one place
-// it should be abstracted into some shared location
-// function hasSeedData () {
-//   let hasSeeds = false
-//   app.seed_data.forEach((s) => {
-//     if (s.records.length) {
-//       hasSeeds = true
-//     }
-//   })
-//   return hasSeeds
-// }

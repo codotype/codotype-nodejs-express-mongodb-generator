@@ -1,5 +1,5 @@
-# codotype-nodejs-express-mongodb-generator
-:ship: Codotype API generator for Node.js, Express, MongoDB, JSON Web Token, &amp; Docker
+# Express.js + MongoDB API Generator
+:ship: Codotype REST API generator for Node.js, Express, MongoDB, JSON Web Token, &amp; Docker
 
 ## Getting Started
 Express.js, Mongoose, ES6 Syntax is used in this project.

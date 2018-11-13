@@ -1,20 +1,16 @@
-const _ = require('lodash')
-const Generator = require('@codotype/generator')
-
-// TODO - migrate this to leverate the `codotype-generator` repository
-module.exports = class SeedData extends Generator {
+module.exports = {
   async write () {
 
-    // Returns boolean wether or not there is seed data
-    function noSeedData (build) {
-      let empty = true
-      _.each(build.app.seed_data, (s) => {
-        if (s.records.length) {
-          empty = false
-        }
-      })
-      return empty
-    }
+    // // Returns boolean wether or not there is seed data
+    // function noSeedData (build) {
+    //   let empty = true
+    //   build.app.seed_data.forEach((s) => {
+    //     if (s.records.length) {
+    //       empty = false
+    //     }
+    //   })
+    //   return empty
+    // }
 
     // Short-circuits if there's no seed data present
     if (noSeedData(this.options.build)) {
@@ -31,7 +27,7 @@ module.exports = class SeedData extends Generator {
     let mongoImports = ['CMD echo "Seeding MongoDB"']
 
     // Generates COPY and mongoimport statements
-    _.each(this.options.build.app.seed_data, (data, schema_id) => {
+    this.options.build.app.seed_data.forEach((data, schema_id) => {
 
       // Debug statement
       // console.log(data.records)

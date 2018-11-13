@@ -1,11 +1,12 @@
 {
   "id": "codotype-nodejs-express-mongodb-generator",
-  "label": "Express.js + MongoDB",
-  "icon": "devicon-express-original",
-  "description": "ExpressJS is a server-side javascript framework for building APIs.",
-  "tech_tags": ["Express.js", "Node", "ES6", "MongoDB"],
-  "type_tags": ["Backend"],
+  "label": "Express.js REST API",
+  "icon": "https://raw.githubusercontent.com/codotype/codotype-nodejs-express-mongodb-generator/master/nodejs.png",
+  "description": "Generates REST APIs in Node.js, Express, MongoDB, and Docker",
+  "tech_tags": ["Express.js", "Node", "ES6", "MongoDB", "Docker"],
+  "type_tags": ["API"],
   "self_configuring": false,
+  "experience": "Intermediate",
   "project_path": "express_api",
   "addons": [],
   "global_options": [

@@ -1,8 +1,5 @@
-const Generator = require('@codotype/generator')
-
-// // // //
-
-module.exports = class ExpressJsBase extends Generator {
+module.exports = {
+  name: 'NodeExpressBase',
   async write () {
 
     // Copies server base code
@@ -12,5 +9,4 @@ module.exports = class ExpressJsBase extends Generator {
     )
 
   }
-
 }
