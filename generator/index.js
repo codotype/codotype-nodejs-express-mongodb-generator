@@ -1,11 +1,11 @@
 module.exports = {
-  name: 'NodeJsExpressMongoDB',
+  name: 'ExpressJS + MongoDB API',
   async write () {
-    await this.composeWith('./base')
-    await this.composeWith('./environment')
-    await this.composeWith('./routes')
-    await this.composeWith('./resource_module')
-    await this.composeWith('./docker_compose')
-    await this.composeWith('./resource_spec')
+    await this.composeWith('./api_base')
+    await this.composeWith('./api_environment')
+    await this.composeWith('./api_controller')
+    await this.composeWith('./api_model')
+    await this.composeWith('./api_routes')
+    await this.composeWith('./api_resource_spec')
   }
 }

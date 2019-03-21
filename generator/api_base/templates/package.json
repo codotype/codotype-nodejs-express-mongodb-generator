@@ -1,0 +1,32 @@
+{
+  "name": "<%= blueprint.identifier %>_server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node src/bin/www.js",
+    "dev": "nodemon --watch src src/bin/www.js",
+    "test": "nyc mocha --timeout=10000 --exit",
+    "apidoc": "apidoc -i ./src/api -o doc/"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "boom": "^7.2.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "mailgun-js": "^0.22.0",
+    "mongoose": "^5.4",
+    "morgan": "^1.7.0",
+    "nodemon": "^1.12.1"
+  },
+  "devDependencies": {
+    "apidoc": "^0.17.6",
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "mocha": "^5.2.0",
+    "node-mocks-http": "^1.7.0",
+    "nodemon": "^1.17.5",
+    "nyc": "^13.0.1",
+    "supertest": "^3.1.0"
+  }
+}
