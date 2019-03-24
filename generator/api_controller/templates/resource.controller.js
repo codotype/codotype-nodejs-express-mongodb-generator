@@ -19,6 +19,15 @@ const <%= schema.class_name %> = require('./<%= schema.identifier %>.model')
 
 <%- include('./partials/controller-api-actions.js') -%>
 <%- include('./partials/controller-relation-actions.js') -%>
+
+// // // //
+// // // //
+// // // //
+<%- include('./partials/controller-reverse-relation-actions.js') -%>
+// // // //
+// // // //
+// // // //
+
 <%- include('./partials/controller-update.js') %>
 
 <%- include('./partials/controller-destroy.js') %>

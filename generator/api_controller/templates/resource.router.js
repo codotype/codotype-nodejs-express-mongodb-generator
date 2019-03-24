@@ -57,7 +57,7 @@ router.put('/:id', requireAdmin, controller.update);
 // DELETE /<%= schema.identifier_plural %>/:id
 router.delete('/:id', requireAdmin, controller.delete);
 
-<%_ /* Iterate over each schema */ _%>
+<%_ /* Iterate over each relation */ _%>
 <%_ schema.relations.forEach((each) => { _%>
 <%_ if ([RELATION_TYPE_BELONGS_TO, RELATION_TYPE_HAS_ONE].includes(each.type)) { _%>
 // GET /<%= schema.identifier_plural %>/:id/<%= each.alias.identifier %>
@@ -74,5 +74,18 @@ router.get('/:id/<%= each.alias.identifier_plural %>', controller.show<%= each.a
 <%_ } _%>
 <%_ }) _%>
 // // // //
+// // // //
+// // // //
 
+<%_ /* Iterate over each relation */ _%>
+<%_ schema.reverse_relations.forEach((each) => { _%>
+<%_ if ([RELATION_TYPE_BELONGS_TO].includes(each.type)) { _%>
+// GET /<%= schema.identifier_plural %>/:id/<%= each.alias.identifier_plural %>
+router.get('/:id/<%= each.alias.identifier_plural %>', controller.show<%= each.alias.class_name_plural %>);
+<%_ } _%>
+<%_ }) _%>
+
+// // // //
+// // // //
+// // // //
 module.exports = router;
