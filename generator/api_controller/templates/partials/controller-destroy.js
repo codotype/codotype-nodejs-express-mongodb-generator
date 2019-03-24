@@ -18,5 +18,5 @@ module.exports.delete = (req, res, next) => {
     .send(response)
     .end();
   })
-  .catch( err => next(boom.badImplementation(err)));
+  // .catch( err => next(boom.badImplementation(err)));
 };

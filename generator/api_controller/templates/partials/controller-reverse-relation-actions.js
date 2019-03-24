@@ -27,7 +27,7 @@ module.exports.show<%= rel.alias.class_name_plural %> = (req, res, next) => {
         .send(<%= rel.schema.identifier_plural %>)
         .end();
     })
-    .catch( err => next(boom.badImplementation(err)));
+    // .catch( err => next(boom.badImplementation(err)));
 };
 
 <%_ } _%>

@@ -11,7 +11,7 @@ router.use(requireAuthenticated)
 router.get('/', controller.list);
 
 // GET /<%= schema.identifier_plural %>/search
-router.get('/search', controller.search);
+// router.get('/search', controller.search);
 
 // POST /<%= schema.identifier_plural %>
 router.post('/', controller.create);

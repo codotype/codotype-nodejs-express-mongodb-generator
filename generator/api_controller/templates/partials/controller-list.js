@@ -19,18 +19,17 @@ module.exports.list = async (req, res, next) => {
   // It's currently included so pagination functions correctly on the front-end
   const count = await <%= schema.class_name %>.countDocuments({})
 
-  try {
-    const <%= schema.identifier_plural %> = await <%= schema.class_name %>.find({})
-    <%_ schema.relations.forEach((rel) => { _%>
-    <%_ if ([RELATION_TYPE_BELONGS_TO, RELATION_TYPE_HAS_ONE].includes(rel.type)) { _%>
-    .populate({ path: '<%= rel.alias.identifier %>', select: '<%= rel.related_lead_attribute %>' })
-    <%_ } _%>
-    <%_ }) _%>
-    .limit(per_page)
-    .skip(offset)
-    .lean()
-    .exec()
-
+  <%= schema.class_name %>.find({})
+  <%_ schema.relations.forEach((rel) => { _%>
+  <%_ if ([RELATION_TYPE_BELONGS_TO, RELATION_TYPE_HAS_ONE].includes(rel.type)) { _%>
+  .populate({ path: '<%= rel.alias.identifier %>', select: '<%= rel.related_lead_attribute %>' })
+  <%_ } _%>
+  <%_ }) _%>
+  .limit(per_page)
+  .skip(offset)
+  .lean()
+  .exec()
+  .then((<%= schema.identifier_plural %>) => {
     return res
     .status(200)
     .json({
@@ -39,7 +38,7 @@ module.exports.list = async (req, res, next) => {
       items: <%= schema.identifier_plural %>,
       count: count
     });
-  } catch (err) {
-    return next(boom.badImplementation(err));
-  }
+  })
+  // .catch((err) => { return next(boom.badImplementation(err)); })
+
 };

@@ -16,24 +16,22 @@ module.exports.create = async (req, res, next) => {
   // Pulls values from req.body
   const { <%= objectKeys.join(', ') %> } = req.body
 
-  try {
+  // Creates new <%= schema.class_name %> instance
+  const newModel = new <%= schema.class_name %>({
+    <%= objectKeys.join(',\n      ') %>
+  })
 
-    // Creates new <%= schema.class_name %> instance
-    const newModel = new <%= schema.class_name %>({
-      <%= objectKeys.join(',\n      ') %>
-    })
-
-    // Saves new <%= schema.class_name %> instance
-    await newModel.save()
+  // Saves new <%= schema.class_name %> instance
+  newModel.save()
+  .then((resp) => {
 
     // Sends new <%= schema.class_name %> to client
     return res
     .status(200)
-    .send(newModel)
+    .send(resp)
     .end();
-  } catch (err) {
-    return next(boom.badImplementation(err));
-  }
+  })
+  // .catch((err) => { return next(boom.badImplementation(err)); })
   <%_ } else { _%>
     // Pulls parameters from req.body
     const { <%= inlineDeconstruction %> } = req.body

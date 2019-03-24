@@ -10,17 +10,19 @@
 <%_ } else { _%>
 // GET /api/<%= schema.identifier_plural %>/:id Show
 <%_ } _%>
-module.exports.show = async (req, res, next) => {
-  const model = await <%= schema.class_name %>.findById(req.params.id)
+module.exports.show = (req, res, next) => {
+  <%= schema.class_name %>.findById(req.params.id)
   <%_ schema.relations.forEach((rel) => { _%>
   <%_ if ([RELATION_TYPE_BELONGS_TO, RELATION_TYPE_HAS_ONE].includes(rel.type)) { _%>
   .populate({ path: '<%= rel.alias.identifier %>', select: '<%= rel.related_lead_attribute %>' })
   <%_ } _%>
   <%_ }) _%>
-  .catch( err => next(boom.badImplementation(err)));
+  .then((model) => {
+    return res
+    .status(200)
+    .send(model)
+    .end();
+  })
+  // .catch( err => next(boom.badImplementation(err)));
 
-  return res
-  .status(200)
-  .send(model)
-  .end();
 };

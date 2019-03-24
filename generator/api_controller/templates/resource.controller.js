@@ -11,8 +11,6 @@ const <%= schema.class_name %> = require('./<%= schema.identifier %>.model')
 <%_ } _%>
 <%- include('./partials/controller-list.js') %>
 
-<%- include('./partials/controller-search.js') %>
-
 <%- include('./partials/controller-create.js') %>
 
 <%- include('./partials/controller-show.js') %>
