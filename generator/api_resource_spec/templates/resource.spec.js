@@ -21,4 +21,12 @@ describe('<%= schema.label %> API', () => {
 
   <%- helpers.indent(include('./partials/spec-relation-actions.js'), 2) %>
 
+  // // // //
+  // // // //
+
+  <%- helpers.indent(include('./partials/spec-reverse-relation-actions.js'), 2) %>
+
+  // // // //
+  // // // //
+
 });

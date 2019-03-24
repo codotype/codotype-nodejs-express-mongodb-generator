@@ -1,7 +1,7 @@
 {
   "id": "codotype-nodejs-express-mongodb-generator",
-  "label": "Node.js Express MongoDB API Generator",
-  "icon": "https://res.cloudinary.com/codotype/image/upload/v1551192656/tech-logos/vue.png",
+  "label": "Express.js & MongoDB REST API Generator",
+  "icon": "https://jaystack.com/wp-content/uploads/2015/12/nodejs-logo-e1497443346889.png",
   "description": "Instantly generate Web APIs with Node.js, Express, MongoDB, and Docker",
   "tech_tags": ["Node.js", "Express.js", "MongoDB", "Docker", "JavaScript", "ES6"],
   "type_tags": ["REST API"],
