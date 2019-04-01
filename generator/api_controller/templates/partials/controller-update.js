@@ -24,5 +24,5 @@ module.exports.update = (req, res, next) => {
     .send(response)
     .end();
   })
-  .catch( err => next(boom.badImplementation(err)));
+  // .catch( err => next(boom.badImplementation(err)));
 };

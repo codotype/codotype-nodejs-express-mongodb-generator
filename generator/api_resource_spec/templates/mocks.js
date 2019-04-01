@@ -23,8 +23,6 @@ const build<%= schema.class_name %> = () => {
     <%= attr.identifier %>: 0,
     <%_ } else if (attr.datatype === DATATYPE_FLOAT) { _%>
     <%= attr.identifier %>: 0.0,
-    <%_ } else if (attr.datatype === DATATYPE_DOUBLE) { _%>
-    <%= attr.identifier %>: 0.00,
     <%_ } else if (attr.datatype === DATATYPE_BOOLEAN) { _%>
     <%= attr.identifier %>: false,
     <%_ } else if (attr.datatype === DATATYPE_JSON) { _%>

@@ -3,7 +3,7 @@
 <%= attr.identifier %>: {
   type: Boolean
 },
-<%_ } else if ([DATATYPE_INTEGER, DATATYPE_FLOAT, DATATYPE_DOUBLE].includes(attr.datatype)) { _%>
+<%_ } else if ([DATATYPE_INTEGER, DATATYPE_FLOAT].includes(attr.datatype)) { _%>
 <%= attr.identifier %>: {
   type: Number,
   required: <%= attr.required %>,

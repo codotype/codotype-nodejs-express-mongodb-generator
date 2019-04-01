@@ -41,7 +41,7 @@ module.exports.<%= action.function_name %> = async (req, res, next) => {
   .skip(offset)
   .lean()
   .exec()
-  .catch( err => next(boom.badImplementation(err)));
+  // .catch( err => next(boom.badImplementation(err)));
 
   return res
   .status(200)
@@ -61,7 +61,7 @@ module.exports.<%= action.function_name %> = async (req, res, next) => {
   // .populate({ path: '<%= rel.alias.identifier_plural %>', select: '<%= rel.related_lead_attribute %>' })
   <%_ } _%>
   <%_ }) _%>
-  .catch( err => next(boom.badImplementation(err)));
+  // .catch( err => next(boom.badImplementation(err)));
 
   return res
   .status(200)

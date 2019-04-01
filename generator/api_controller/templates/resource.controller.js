@@ -11,14 +11,21 @@ const <%= schema.class_name %> = require('./<%= schema.identifier %>.model')
 <%_ } _%>
 <%- include('./partials/controller-list.js') %>
 
-<%- include('./partials/controller-search.js') %>
-
 <%- include('./partials/controller-create.js') %>
 
 <%- include('./partials/controller-show.js') %>
 
 <%- include('./partials/controller-api-actions.js') -%>
 <%- include('./partials/controller-relation-actions.js') -%>
+
+// // // //
+// // // //
+// // // //
+<%- include('./partials/controller-reverse-relation-actions.js') -%>
+// // // //
+// // // //
+// // // //
+
 <%- include('./partials/controller-update.js') %>
 
 <%- include('./partials/controller-destroy.js') %>

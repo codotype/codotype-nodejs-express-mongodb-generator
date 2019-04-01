@@ -14,7 +14,7 @@
 <%_ } _%>
 module.exports.show<%= rel.alias.class_name %> = async (req, res, next) => {
   const <%= schema.identifier %> = await <%= schema.class_name %>.findById(req.params.id)
-  .catch( err => next(boom.badImplementation(err)));
+  // .catch( err => next(boom.badImplementation(err)));
 
   const <%= rel.schema.identifier %> = await <%= rel.schema.class_name %>.findById(<%= schema.identifier %>.<%= rel.alias.identifier + '_id' %>)
   <%_ let relatedSchema = blueprint.schemas.find(s => s.id === rel.related_schema_id) _%>
@@ -23,7 +23,7 @@ module.exports.show<%= rel.alias.class_name %> = async (req, res, next) => {
   .populate({ path: '<%= rel.alias.identifier %>', select: '<%= rel.related_lead_attribute %>' })
   <%_ } _%>
   <%_ }) _%>
-  .catch( err => next(boom.badImplementation(err)));
+  // .catch( err => next(boom.badImplementation(err)));
 
   return res
   .status(200)
@@ -49,7 +49,7 @@ module.exports.show<%= rel.alias.class_name %> = async (req, res, next) => {
 module.exports.show<%= rel.alias.class_name_plural %> = async (req, res, next) => {
 
   const model = await <%= schema.class_name %>.findById(req.params.id)
-  .catch( err => next(boom.badImplementation(err)));
+  // .catch( err => next(boom.badImplementation(err)));
 
   const <%= rel.schema.identifier_plural %> = await <%= rel.schema.class_name %>
   .find({ _id: model.<%= rel.alias.identifier %>_ids })
@@ -61,7 +61,7 @@ module.exports.show<%= rel.alias.class_name_plural %> = async (req, res, next) =
   // .populate({ path: '<%= rel.alias.identifier_plural %>', select: '<%= rel.related_lead_attribute %>' }) // CODOTYPE-NOTE - OPTIONAL
   <%_ } _%>
   <%_ }) _%>
-  .catch( err => next(boom.badImplementation(err)));
+  // .catch( err => next(boom.badImplementation(err)));
 
   return res
   .status(200)
@@ -98,7 +98,7 @@ module.exports.show<%= rel.alias.class_name_plural %> = (req, res, next) => {
         .send(<%= rel.schema.identifier_plural %>)
         .end();
     })
-    .catch( err => next(boom.badImplementation(err)));
+    // .catch( err => next(boom.badImplementation(err)));
 };
 
 <%_ } _%>
