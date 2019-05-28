@@ -8,7 +8,7 @@ module.exports = {
 
     // Pulls schema api_actions
     let schemaApiActions = []
-    if (configuration.api_actions[schema.identifier]) {
+    if (configuration.api_actions && configuration.api_actions[schema.identifier]) {
       schemaApiActions = configuration.api_actions[schema.identifier]
     }
 
@@ -25,18 +25,18 @@ module.exports = {
     let objectKeys = Object.keys(defaultModel)
 
     // src/api/resource/resource.controller.js
-    await this.copyTemplate(
-      this.templatePath('resource.controller.js'),
-      this.destinationPath(resourceDest + '/' + schema.identifier + '.controller.js'),
-      { schema, generate_api_doc, schemaApiActions, inlineDeconstruction, objectKeys }
-    );
+    await this.renderComponent({
+      src: 'resource.controller.js',
+      dest: resourceDest + '/' + schema.identifier + '.controller.js',
+      data: { schema, generate_api_doc, schemaApiActions, inlineDeconstruction, objectKeys }
+    });
 
     // src/api/resource/index.js
-    await this.copyTemplate(
-      this.templatePath('resource.router.js'),
-      this.destinationPath(resourceDest + '/index.js'),
-      { schema, schemaApiActions }
-    );
+    await this.renderComponent({
+      src: 'resource.router.js',
+      dest: resourceDest + '/index.js',
+      data: { schema, schemaApiActions }
+    });
 
   }
 

@@ -15,17 +15,17 @@ module.exports = {
 
     // src/api/resource/resource.model.js
     if (schema.identifier === 'user') {
-      await this.copyTemplate(
-        this.templatePath('user.resource.model.js'),
-        this.destinationPath(resourceDest + '/' + schema.identifier + '.model.js'),
-        { schema, inlineDeconstruction }
-      );
+      await this.renderComponent({
+        src: 'user.resource.model.js',
+        dest: resourceDest + '/' + schema.identifier + '.model.js',
+        data: { schema, inlineDeconstruction }
+      });
     } else {
-      await this.copyTemplate(
-        this.templatePath('resource.model.js'),
-        this.destinationPath(resourceDest + '/' + schema.identifier + '.model.js'),
-        { schema }
-      );
+      await this.renderComponent({
+        src: 'resource.model.js',
+        dest: resourceDest + '/' + schema.identifier + '.model.js',
+        data: { schema }
+      });
     }
 
   }
