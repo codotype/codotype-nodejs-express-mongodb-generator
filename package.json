@@ -1,6 +1,6 @@
 {
   "name": "@codotype/codotype-nodejs-express-mongodb-generator",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A Codotype generator for Node.js, Express, MongoDB &amp; Docker",
   "main": "index.js",
   "scripts": {

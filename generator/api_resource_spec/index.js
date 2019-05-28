@@ -1,5 +1,27 @@
 module.exports = {
   name: 'ResourceSpec',
+  async forEachSchema ({ schema }) {
+
+    // Defines the schema-specific destination
+    let resourceDest = 'src/api/' + schema.identifier
+
+    // Ensures the presence of the directory
+    await this.ensureDir(resourceDest)
+
+    // Defines filepath for spec test
+    let specFilePath = resourceDest + '/' + schema.identifier + '.spec.js'
+
+    // Stores the spec path
+    // specPaths.push(`../src/api/${schema.identifier}/${schema.identifier}.spec.js`)
+
+    // api/resource/resource.spec.js
+    await this.renderComponent({
+      src: 'resource.spec.js',
+      dest: specFilePath,
+      data: { schema }
+    });
+
+  },
   async write ({ blueprint }) {
 
     // Store all spec filenames for inclusion in web_api/test/index.js
@@ -9,29 +31,11 @@ module.exports = {
     let mocks = {}
 
     // Iterates over each schema in the blueprint.schemas array
-    // blueprint.schemas.forEach(async (schema) => {
     for (var i = blueprint.schemas.length - 1; i >= 0; i--) {
       let schema = blueprint.schemas[i]
 
-      // Defines the schema-specific destination
-      let resourceDest = 'src/api/' + schema.identifier
-
-      // Ensures the presence of the directory
-      await this.ensureDir(resourceDest)
-
-      // Defines filepath for spec test
-      let specFilePath = resourceDest + '/' + schema.identifier + '.spec.js'
-
       // Stores the spec path
       specPaths.push(`../src/api/${schema.identifier}/${schema.identifier}.spec.js`)
-
-      // api/resource/resource.spec.js
-      await this.copyTemplate(
-        this.templatePath('resource.spec.js'),
-        this.destinationPath(specFilePath),
-        { schema }
-      );
-
     }
 
     // Ensures the presence of the web_api/test directory
@@ -43,18 +47,18 @@ module.exports = {
     })
 
     // Copy mocks
-    await this.copyTemplate(
-      this.templatePath('mocks.js'),
-      this.destinationPath('test/mocks.js'),
-      { mocks }
-    );
+    await this.renderComponent({
+      src: 'mocks.js',
+      dest: 'test/mocks.js',
+      data: { mocks }
+    });
 
     // Writes the template
-    await this.copyTemplate(
-      this.templatePath('test.js'),
-      this.destinationPath('test/index.js'),
-      { specPaths }
-    );
+    await this.renderComponent({
+      src: 'test.js',
+      dest: 'test/index.js',
+      data: { specPaths }
+    });
 
   }
 
